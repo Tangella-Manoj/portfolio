@@ -1,0 +1,24 @@
+:root {
+  --font-size: 16px;
+  --background: #0A0A0F;
+  --foreground: #E5E5E7;
+  --card: #111118;
+  --border: #1E1E2E;
+  --ring: #2979FF;
+  --primary: #2979FF;
+  --secondary: #00E5FF;
+  --muted: #9CA3AF;
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+* {
+  border-color: var(--border);
+}
