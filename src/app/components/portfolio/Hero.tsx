@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowRight, MessageCircle, ChevronDown } from 'lucide-react';
 import { personalInfo } from '../../../constants';
 
-// Stagger word animation - each word slides up from its own overflow:hidden container
 function AnimatedWord({
   children,
   delay = 0,
@@ -29,15 +28,15 @@ function AnimatedWord({
   );
 }
 
-// Terminal component - kept but redesigned to be more minimal
 function Terminal({ inView }: { inView: boolean }) {
   const lines = [
-    { type: 'cmd', text: 'java -jar disbursement-api.jar --env=prod' },
-    { type: 'ok', text: 'Spring Boot 3.2 · port 8080' },
-    { type: 'ok', text: 'Disbursement service    ACTIVE' },
-    { type: 'ok', text: 'KYC verification        RUNNING' },
-    { type: 'info', text: 'p50 28ms · p99 50ms · 2.5k req/s' },
-    { type: 'info', text: 'Ready. Accepting connections.' },
+    { type: 'cmd', text: 'java -jar backend-service.jar --env=prod' },
+    { type: 'ok', text: 'Spring Boot 3.2 · Java 17 runtime' },
+    { type: 'ok', text: 'Distributed concurrency lock    READY' },
+    { type: 'ok', text: 'RabbitMQ event processing       CONNECTED' },
+    { type: 'info', text: 'Commit latency: 50ms (↓90% reduction)' },
+    { type: 'info', text: 'Batch execution: multithreaded (8h → 30m)' },
+    { type: 'ok', text: 'Service healthy · Listening on port 8080' },
   ];
 
   const [visible, setVisible] = useState(0);
@@ -47,7 +46,7 @@ function Terminal({ inView }: { inView: boolean }) {
     if (!inView) return;
     const timers: ReturnType<typeof setTimeout>[] = [];
     lines.forEach((_, i) => {
-      timers.push(setTimeout(() => setVisible(i + 1), i * 600 + 200));
+      timers.push(setTimeout(() => setVisible(i + 1), i * 450 + 200));
     });
     return () => timers.forEach(clearTimeout);
   }, [inView]);
@@ -60,14 +59,14 @@ function Terminal({ inView }: { inView: boolean }) {
       i++;
       setTyped(text.slice(0, i));
       if (i >= text.length) clearInterval(id);
-    }, 22);
+    }, 20);
     return () => clearInterval(id);
   }, [inView]);
 
   const colorMap: Record<string, string> = {
     cmd: 'text-zinc-100',
     ok: 'text-emerald-400',
-    info: 'text-zinc-500',
+    info: 'text-blue-400',
   };
 
   return (
@@ -81,35 +80,39 @@ function Terminal({ inView }: { inView: boolean }) {
       <div
         className="absolute -inset-4 rounded-3xl"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.12) 0%, transparent 70%)',
         }}
       />
       <div
-        className="relative rounded-2xl overflow-hidden border"
-        style={{ background: '#0d0d12', borderColor: 'rgba(255,255,255,0.07)' }}
+        className="relative rounded-2xl overflow-hidden border shadow-2xl"
+        style={{ background: '#0b0c10', borderColor: 'rgba(255,255,255,0.08)' }}
       >
         {/* Title bar */}
         <div
-          className="flex items-center gap-1.5 px-4 h-9 border-b"
-          style={{ borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}
+          className="flex items-center justify-between px-4 h-10 border-b"
+          style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}
         >
-          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-          <span className="font-mono text-[11px] text-zinc-600 ml-2">~/production — zsh</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+            <span className="font-mono text-[11px] text-zinc-500 ml-2">~/production — zsh</span>
+          </div>
+          <span className="font-mono text-[10px] text-zinc-600">port 8080</span>
         </div>
+
         {/* Terminal body */}
-        <div className="font-mono p-5 min-h-[220px] text-[12.5px] leading-[1.9] space-y-0.5">
+        <div className="font-mono p-5 min-h-[235px] text-[12px] leading-[1.85] space-y-1">
           {lines.slice(0, visible).map((l, idx) => (
             <div key={idx} className="flex gap-2.5">
               {l.type === 'cmd' && (
                 <span className="text-[#3b82f6] select-none flex-shrink-0">❯</span>
               )}
               {l.type === 'ok' && (
-                <span className="text-emerald-500 select-none flex-shrink-0">✓</span>
+                <span className="text-emerald-400 select-none flex-shrink-0">✓</span>
               )}
               {l.type === 'info' && (
-                <span className="text-zinc-600 select-none flex-shrink-0">→</span>
+                <span className="text-blue-400 select-none flex-shrink-0">→</span>
               )}
               <span className={colorMap[l.type] ?? 'text-zinc-300'}>
                 {idx === 0 ? typed : l.text}
@@ -127,13 +130,13 @@ function Terminal({ inView }: { inView: boolean }) {
         initial={{ opacity: 0, x: 16, y: -8 }}
         animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
         transition={{ delay: 2, duration: 0.5 }}
-        className="absolute -right-3 -top-3 hidden md:flex items-center gap-1.5 glass px-3 py-1.5 rounded-full"
+        className="absolute -right-3 -top-3 hidden md:flex items-center gap-1.5 glass px-3 py-1.5 rounded-full border border-emerald-500/20"
       >
         <span className="relative flex w-1.5 h-1.5">
           <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping-slow" />
           <span className="relative rounded-full w-1.5 h-1.5 bg-emerald-400" />
         </span>
-        <span className="font-mono text-[10.5px] text-emerald-400">PROD · HEALTHY</span>
+        <span className="font-mono text-[10.5px] text-emerald-400 font-medium">PROD · HEALTHY</span>
       </motion.div>
 
       {/* Latency badge */}
@@ -141,11 +144,11 @@ function Terminal({ inView }: { inView: boolean }) {
         initial={{ opacity: 0, x: -16, y: 10 }}
         animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
         transition={{ delay: 2.2, duration: 0.5 }}
-        className="absolute -left-3 -bottom-4 hidden md:block glass px-3 py-2 rounded-xl"
+        className="absolute -left-3 -bottom-4 hidden md:block glass px-3.5 py-2 rounded-xl border border-blue-500/20"
       >
-        <div className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-zinc-600">p99 latency</div>
-        <div className="text-[#3b82f6] text-[13px] font-medium font-mono">
-          50ms <span className="text-zinc-600">↓ 90%</span>
+        <div className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-zinc-500">p99 latency</div>
+        <div className="text-[#3b82f6] text-[13px] font-semibold font-mono">
+          50ms <span className="text-zinc-500 font-normal">↓ 90%</span>
         </div>
       </motion.div>
     </motion.div>
@@ -177,8 +180,8 @@ export function Hero() {
                 <span className="absolute inset-0 rounded-full bg-[#3b82f6] animate-ping-slow" />
                 <span className="relative w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />
               </span>
-              <span className="font-mono text-[10.5px] sm:text-[11px] tracking-[0.18em] uppercase text-[var(--text-2)]">
-                Backend Engineer · Open to Work
+              <span className="font-mono text-[10.5px] sm:text-[11px] tracking-[0.18em] uppercase text-[var(--text-2)] font-medium">
+                Software Engineer · Open to Work
               </span>
             </motion.div>
 

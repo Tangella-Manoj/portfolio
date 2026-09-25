@@ -27,8 +27,9 @@ function ProjectCard({ project, i }: { project: typeof projectsData[0]; i: numbe
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       className="card group flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3b82f6]"
       aria-label={`View ${project.title} on GitHub`}
     >

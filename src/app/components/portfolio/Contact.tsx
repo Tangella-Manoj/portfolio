@@ -25,9 +25,9 @@ export function Contact() {
       await navigator.clipboard.writeText(personalInfo.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2200);
-      setTimeout(() => window.open(`mailto:${personalInfo.email}`, '_blank'), 150);
+      setTimeout(() => { window.location.href = `mailto:${personalInfo.email}`; }, 150);
     } catch {
-      window.open(`mailto:${personalInfo.email}`, '_blank');
+      window.location.href = `mailto:${personalInfo.email}`;
     }
   };
 
@@ -39,8 +39,8 @@ export function Contact() {
             index="05"
             label="Contact"
             align="center"
-            title={<>Let's discuss your next <span className="text-[#3b82f6]">backend challenge.</span></>}
-            subtitle="Available for full-time backend engineering roles and technical consulting."
+            title={<>Let's build something <span className="text-[#3b82f6]">great together.</span></>}
+            subtitle="Available for full-time Software Engineer and Full Stack roles. Open to Bengaluru and remote opportunities."
           />
 
           {/* Email CTA */}

@@ -58,20 +58,29 @@ export function Navigation() {
           aria-label="Back to top"
           className="relative z-50 flex items-center gap-2 group focus:outline-none"
         >
-          {/* Orbit logo */}
+          {/* Auto-Animated M Monogram Logo */}
           <div className="relative w-8 h-8 flex items-center justify-center flex-shrink-0">
-            <div className="absolute w-[35%] h-[35%] rounded-full bg-[#3b82f6] opacity-90 shadow-[0_0_14px_rgba(59,130,246,0.5)]"
-              style={{ animation: 'pulse 3s ease-in-out infinite' }}
-            />
+            {/* Outer subtle ring track */}
+            <div className="absolute inset-0 rounded-full border border-blue-500/25 bg-blue-500/[0.04]" />
+
+            {/* Smooth auto-orbiting glowing satellite bead */}
             <div
-              className="absolute w-full h-full"
-              style={{ animation: 'orbit 8s linear infinite' }}
+              className="absolute inset-0"
+              style={{ animation: 'orbit 5s linear infinite' }}
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[22%] h-[22%] rounded-full bg-[#93c5fd] opacity-80" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#3b82f6] shadow-[0_0_8px_rgba(59,130,246,0.9)]" />
             </div>
+
+            {/* Centered M letter */}
+            <span
+              className="relative z-10 font-display font-black text-[14px] text-white group-hover:text-blue-400 transition-colors duration-300 select-none"
+              style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.03em', lineHeight: 1 }}
+            >
+              M
+            </span>
           </div>
           <span
-            className="font-display text-[14px] font-bold tracking-tight text-foreground/90 group-hover:text-white transition-colors"
+            className="font-display text-[15px] font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
             Manoj<span className="text-[#3b82f6]">.</span>
@@ -110,7 +119,7 @@ export function Navigation() {
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-2">
           <a
-            href="https://drive.google.com/file/d/15S3uOhiws74RW39o1nH1z43JIxLU5wuP/view?usp=sharing"
+            href={personalInfo.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Resume"
@@ -162,7 +171,7 @@ export function Navigation() {
                 </motion.a>
               ))}
               <motion.a
-                href="https://drive.google.com/file/d/15S3uOhiws74RW39o1nH1z43JIxLU5wuP/view?usp=sharing"
+                href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0 }}

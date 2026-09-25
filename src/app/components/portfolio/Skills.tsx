@@ -10,8 +10,9 @@ function SkillGroup({ group, i }: { group: typeof skillGroups[0]; i: number }) {
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, delay: i * 0.07 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       ref={ref}
       onMouseMove={onMouseMove}
       className="card p-4 sm:p-5 md:p-6"

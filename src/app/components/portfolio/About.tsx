@@ -14,8 +14,9 @@ function StatCard({ h, i }: { h: Highlight; i: number }) {
       onMouseMove={onMouseMove}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -5 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       className="card p-4 sm:p-5"
     >
       <div className="card-glow" />
@@ -35,10 +36,10 @@ function StatCard({ h, i }: { h: Highlight; i: number }) {
 
 export function About() {
   const highlights: Highlight[] = [
-    { value: '90%',  label: 'Latency reduced',   detail: '500ms → 50ms (p99)' },
-    { value: '96×',  label: 'Batch throughput',   detail: '8 hrs → < 5 min' },
-    { value: '300+', label: 'Problems solved',    detail: `LeetCode · Rating ${personalInfo.leetcode.rating}` },
-    { value: '10k+', label: 'Events / minute',    detail: 'Fault-tolerant Kafka pipeline' },
+    { value: '90%',  label: 'Latency reduced',     detail: '500ms → 50ms (p99 commit)' },
+    { value: '94%',  label: 'Batch speedup',       detail: '8 hrs → 30 min runtime' },
+    { value: '300+', label: 'Problems solved',     detail: `LeetCode · Rating ${personalInfo.leetcode.rating}` },
+    { value: '8+',   label: 'Prod RCAs resolved',  detail: 'Critical production issues fixed' },
   ];
 
   return (
@@ -73,20 +74,20 @@ export function About() {
               className="mt-7 space-y-4 text-[16px] leading-[1.8] text-[var(--text-2)]"
             >
               <p>
-                Backend developer building production systems for a live fintech platform. I design
+                Software Engineer building production backend systems for a live fintech NBFC platform. I design
                 and implement APIs, optimize database queries, and resolve performance bottlenecks
                 in systems handling thousands of daily transactions. My work spans the full backend
                 stack —{' '}
                 <span className="text-foreground font-medium">
-                  from database schema design to service deployment and monitoring
+                  from database schema design to asynchronous message queues and production support
                 </span>.
               </p>
               <p>
                 I focus on writing clean, maintainable code and building systems that handle edge
-                cases reliably. Every feature ships with load testing, every query gets profiled,
-                and every deployment has a rollback procedure. Outside work, I sharpen
-                problem-solving through competitive programming and stay current with backend
-                architecture patterns.
+                cases reliably. Every feature ships with volume and load testing, every query gets profiled,
+                and every critical transaction path is guarded with distributed concurrency locks and automated retry mechanisms. Outside work, I sharpen
+                problem-solving through competitive programming and stay current with distributed systems
+                architecture.
               </p>
             </motion.div>
 

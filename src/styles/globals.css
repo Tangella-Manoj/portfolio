@@ -5,17 +5,17 @@
 }
 
 :root {
-  --bg: #09090b;
-  --surface: #101014;
-  --surface-2: #18181c;
-  --border: rgba(255, 255, 255, 0.07);
-  --border-accent: rgba(59, 130, 246, 0.3);
+  --bg: #08090c;
+  --surface: #0e1015;
+  --surface-2: #141720;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(59, 130, 246, 0.25);
   --accent: #3b82f6;
   --accent-rgb: 59, 130, 246;
-  --text-1: #f4f4f5;
-  --text-2: #a1a1aa;
-  --text-3: #52525b;
-  --radius: 12px;
+  --text-1: #f8fafc;
+  --text-2: #94a3b8;
+  --text-3: #64748b;
+  --radius: 14px;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-display: 'Space Grotesk', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -28,8 +28,13 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -45,23 +50,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (min-width: 1024px) {
-  body { cursor: none; }
-  a, button, [role="button"] { cursor: none; }
-}
-
 ::selection {
-  background-color: rgba(59, 130, 246, 0.2);
+  background-color: rgba(59, 130, 246, 0.25);
   color: #fff;
 }
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.25);
-  border-radius: 3px;
+::-webkit-scrollbar {
+  width: 6px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.45); }
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
 
 /* ── Layout ─────────────────────────────────── */
 .section-x {
@@ -72,22 +81,38 @@ body {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
+
 @media (min-width: 640px) {
-  .section-x { padding-left: 1.75rem; padding-right: 1.75rem; }
+  .section-x {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
 }
+
 @media (min-width: 768px) {
-  .section-x { padding-left: 2.5rem; padding-right: 2.5rem; }
+  .section-x {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
 }
+
 @media (min-width: 1024px) {
-  .section-x { padding-left: 3rem; padding-right: 3rem; }
+  .section-x {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 
 .section-y {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
+
 @media (min-width: 1024px) {
-  .section-y { padding-top: 7rem; padding-bottom: 7rem; }
+  .section-y {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
 }
 
 /* ── Typography ──────────────────────────────── */
@@ -96,7 +121,9 @@ body {
   letter-spacing: -0.025em;
 }
 
-.font-mono { font-family: var(--font-mono); }
+.font-mono {
+  font-family: var(--font-mono);
+}
 
 /* Use sparingly — only hero name */
 .text-gradient {
@@ -109,7 +136,9 @@ body {
   box-decoration-break: clone;
 }
 
-.text-accent { color: var(--accent); }
+.text-accent {
+  color: var(--accent);
+}
 
 /* ── Cards ───────────────────────────────────── */
 .card {
@@ -118,12 +147,14 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
 }
 
 .card:hover {
-  border-color: rgba(59, 130, 246, 0.2);
-  box-shadow: 0 0 40px -12px rgba(59, 130, 246, 0.08);
+  transform: translateY(-6px) !important;
+  border-color: rgba(59, 130, 246, 0.25);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7), 0 0 24px -6px rgba(59, 130, 246, 0.1);
 }
 
 /* Mouse-tracking glow layer — child of .card */
@@ -136,7 +167,7 @@ body {
   transition: opacity 0.4s ease;
   background: radial-gradient(
     350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(var(--accent-rgb), 0.09),
+    rgba(var(--accent-rgb), 0.12),
     transparent 65%
   );
 }
@@ -149,7 +180,7 @@ body {
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.2rem 0.65rem;
+  padding: 0.22rem 0.65rem;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -157,6 +188,13 @@ body {
   font-size: 11px;
   color: var(--text-2);
   white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.tag:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--text-1);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* ── Glass (used only for nav pill / status badges) */
@@ -168,7 +206,10 @@ body {
 }
 
 /* ── Focus ───────────────────────────────────── */
-*:focus { outline: none; }
+*:focus {
+  outline: none;
+}
+
 *:focus-visible {
   outline: 2px solid rgba(59, 130, 246, 0.5);
   outline-offset: 2px;
@@ -176,22 +217,45 @@ body {
 
 /* ── Animations ──────────────────────────────── */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
+
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
 
 @keyframes ping-slow {
-  0%, 100% { transform: scale(1); opacity: 0.75; }
-  50% { transform: scale(1.8); opacity: 0; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+
+  50% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }
+
 .animate-ping-slow {
   animation: ping-slow 2.5s ease-out infinite;
 }
 
 @keyframes orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
