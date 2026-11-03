@@ -1,51 +1,86 @@
-import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { skillGroups } from '../../../constants';
-import { useMouseGlow } from '../hooks/useMouseGlow';
-
-function SkillGroup({ group, i }: { group: typeof skillGroups[0]; i: number }) {
-  const { ref, onMouseMove } = useMouseGlow<HTMLDivElement>();
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.25, ease: 'easeOut' }}
-      ref={ref}
-      onMouseMove={onMouseMove}
-      className="card p-4 sm:p-5 md:p-6"
-    >
-      <div className="card-glow" />
-      <div className="relative z-10">
-        <h3 className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#3b82f6] mb-4">
-          {group.category}
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {group.skills.map((skill) => (
-            <span key={skill} className="tag">{skill}</span>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+import { Code2, Layers, Network, Database, Terminal, ShieldCheck } from 'lucide-react';
 
 export function Skills() {
+  const categoryStyles: Record<string, { icon: any; badgeClass: string; borderTop: string }> = {
+    'Core Languages': {
+      icon: Code2,
+      badgeClass: 'bg-blue-50 text-blue-700 border-blue-200/70',
+      borderTop: 'border-t-blue-500',
+    },
+    'Frameworks & Architecture': {
+      icon: Layers,
+      badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200/70',
+      borderTop: 'border-t-indigo-500',
+    },
+    'Distributed Systems & Concurrency': {
+      icon: Network,
+      badgeClass: 'bg-purple-50 text-purple-700 border-purple-200/70',
+      borderTop: 'border-t-purple-500',
+    },
+    'Databases & Storage': {
+      icon: Database,
+      badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200/70',
+      borderTop: 'border-t-emerald-500',
+    },
+    'DevOps & Cloud Delivery': {
+      icon: Terminal,
+      badgeClass: 'bg-amber-50 text-amber-700 border-amber-200/70',
+      borderTop: 'border-t-amber-500',
+    },
+    'Software Craftsmanship': {
+      icon: ShieldCheck,
+      badgeClass: 'bg-teal-50 text-teal-700 border-teal-200/70',
+      borderTop: 'border-t-teal-500',
+    },
+  };
+
   return (
-    <section id="skills" className="relative section-y">
-      <div className="section-x">
+    <section id="skills" className="section-spacing border-t border-slate-200/80">
+      <div className="container-site">
         <SectionHeader
-          index="04"
-          label="Toolkit"
-          title={<>What I <span className="text-[#3b82f6]">build</span> with.</>}
-          subtitle="Technologies I rely on to build reliable, scalable backend systems."
+          kicker="Competencies"
+          title="Technical Skills"
+          description="Languages, frameworks, concurrency primitives, and storage engines I operate with in production."
         />
-        <div className="mt-10 lg:mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl">
-          {skillGroups.map((group, i) => (
-            <SkillGroup key={group.category} group={group} i={i} />
-          ))}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {skillGroups.map((group) => {
+            const style = categoryStyles[group.category] || {
+              icon: Code2,
+              badgeClass: 'bg-slate-100 text-slate-700 border-slate-200',
+              borderTop: 'border-t-slate-400',
+            };
+            const Icon = style.icon;
+
+            return (
+              <div
+                key={group.category}
+                className={`pro-card p-5 space-y-3.5 bg-white border-t-2 ${style.borderTop} flex flex-col justify-between`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className={`p-1.5 rounded-lg border ${style.badgeClass}`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <h3 className="text-[13.5px] font-bold text-slate-900 tracking-tight">
+                    {group.category}
+                  </h3>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {group.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-2.5 py-1 text-[11.5px] sm:text-[12px] font-medium rounded-md bg-slate-50 text-slate-700 border border-slate-200/80 hover:bg-slate-100 hover:text-slate-900 hover:border-slate-300 transition-colors"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

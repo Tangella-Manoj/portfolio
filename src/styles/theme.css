@@ -1,13 +1,13 @@
 :root {
   --font-size: 16px;
-  --background: #0A0A0F;
-  --foreground: #E5E5E7;
-  --card: #111118;
-  --border: #1E1E2E;
-  --ring: #2979FF;
-  --primary: #2979FF;
-  --secondary: #00E5FF;
-  --muted: #9CA3AF;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --ring: #2563eb;
+  --primary: #2563eb;
+  --secondary: #0284c7;
+  --muted: #64748b;
 }
 
 html {

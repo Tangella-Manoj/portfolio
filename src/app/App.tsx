@@ -11,12 +11,12 @@ import { Background } from './components/portfolio/Background';
 
 export default function App() {
   useEffect(() => {
-    document.documentElement.classList.add('dark');
-    document.body.style.backgroundColor = '#08090c';
+    document.documentElement.classList.remove('dark');
+    document.body.style.backgroundColor = '#f8fafc';
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#08090c] text-[#f8fafc] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#f8fafc] text-slate-900 overflow-x-hidden selection:bg-blue-100 selection:text-blue-900">
       <Background />
       <Navigation />
       <main className="relative">

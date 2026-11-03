@@ -1,116 +1,126 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Boxes, Activity, GitBranch } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
-import { projects as projectsData } from '../../../constants';
-import { useMouseGlow } from '../hooks/useMouseGlow';
-
-const projectMeta: Record<string, {
-  icon: React.FC<{ className?: string }>;
-  metric: { value: string; label: string };
-}> = {
-  'loan-management': { icon: Boxes, metric: { value: '4', label: 'microservices' } },
-  'event-processing': { icon: Activity, metric: { value: '10k+', label: 'events/min' } },
-  'devops-platform': { icon: GitBranch, metric: { value: '100%', label: 'automated' } },
-};
-
-function ProjectCard({ project, i }: { project: typeof projectsData[0]; i: number }) {
-  const { ref, onMouseMove } = useMouseGlow<HTMLAnchorElement>();
-  const meta = projectMeta[project.id] ?? { icon: Boxes, metric: { value: '—', label: 'project' } };
-  const Icon = meta.icon;
-
-  return (
-    <motion.a
-      ref={ref}
-      onMouseMove={onMouseMove}
-      href={project.githubUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.25, ease: 'easeOut' }}
-      className="card group flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3b82f6]"
-      aria-label={`View ${project.title} on GitHub`}
-    >
-      <div className="card-glow" />
-      <div className="relative z-10 p-5 sm:p-6 flex flex-col h-full">
-        {/* Icon + metric */}
-        <div className="flex items-start justify-between mb-5">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center border transition-colors duration-300"
-            style={{ background: 'rgba(59,130,246,0.06)', borderColor: 'rgba(59,130,246,0.15)' }}
-          >
-            <Icon className="w-[18px] h-[18px] text-[#3b82f6]" />
-          </div>
-          <div className="text-right">
-            <div
-              className="font-display font-bold text-foreground"
-              style={{ fontSize: 'clamp(18px,2vw,22px)', letterSpacing: '-0.03em' }}
-            >
-              {meta.metric.value}
-            </div>
-            <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-3)] mt-0.5">
-              {meta.metric.label}
-            </div>
-          </div>
-        </div>
-
-        {/* Title + desc */}
-        <h3
-          className="font-display font-semibold text-foreground group-hover:text-[#60a5fa] transition-colors duration-300 mb-2 leading-snug"
-          style={{ fontSize: 'clamp(16px,1.8vw,19px)' }}
-        >
-          {project.title}
-        </h3>
-        <p className="text-[13.5px] text-[var(--text-2)] leading-relaxed mb-2">
-          {project.description}
-        </p>
-        <p className="text-[12.5px] text-[var(--text-3)] leading-relaxed">
-          {project.impact}
-        </p>
-
-        {/* Tags */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.tags.map((t) => (
-            <span key={t} className="tag">{t}</span>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div
-          className="mt-auto pt-5 flex items-center justify-between border-t"
-          style={{ borderColor: 'rgba(255,255,255,0.05)' }}
-        >
-          <span className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-[#3b82f6]">
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
-            </svg>
-            GitHub
-          </span>
-          <ArrowUpRight
-            className="w-4 h-4 text-[var(--text-3)] group-hover:text-[#3b82f6] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
-          />
-        </div>
-      </div>
-    </motion.a>
-  );
-}
+import { projectsList } from '../../../constants';
+import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 
 export function Projects() {
   return (
-    <section id="projects" className="relative section-y">
-      <div className="section-x">
+    <section id="projects" className="section-spacing border-t border-slate-200/80">
+      <div className="container-site">
         <SectionHeader
-          index="03"
-          label="Selected Work"
-          title={<>Projects built for <span className="text-[#3b82f6]">production</span>.</>}
-          subtitle="End-to-end systems from architecture to deployment."
+          kicker="Selected Work"
+          title="Featured Engineering Projects"
+          description="Distributed transaction architectures, full-stack search systems, and developer tooling built from the ground up."
         />
-        <div className="mt-10 lg:mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {projectsData.map((project, i) => (
-            <ProjectCard key={project.id} project={project} i={i} />
-          ))}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {projectsList.map((project, idx) => {
+            const projectThemes = [
+              { borderTop: 'border-t-blue-500', badgeClass: 'text-blue-700 bg-blue-50 border-blue-200/70' },
+              { borderTop: 'border-t-purple-500', badgeClass: 'text-purple-700 bg-purple-50 border-purple-200/70' },
+              { borderTop: 'border-t-amber-500', badgeClass: 'text-amber-700 bg-amber-50 border-amber-200/70' },
+              { borderTop: 'border-t-emerald-500', badgeClass: 'text-emerald-700 bg-emerald-50 border-emerald-200/70' },
+            ];
+            const theme = projectThemes[idx % projectThemes.length];
+
+            return (
+              <div
+                key={project.id}
+                className={`pro-card p-5 sm:p-7 space-y-4 group hover:border-slate-300 flex flex-col justify-between bg-white border-t-2 ${theme.borderTop}`}
+              >
+                <div className="space-y-4">
+                  {/* Header row */}
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5 pb-3 border-b border-slate-100">
+                    <div className="space-y-1">
+                      <span className={`inline-block text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${theme.badgeClass}`}>
+                        {project.badge}
+                      </span>
+                      <h3 className="text-[17px] sm:text-[18px] font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {project.title}
+                      </h3>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0 pt-0.5 sm:pt-0">
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] sm:text-[12.5px] font-medium text-slate-700 bg-slate-100 hover:bg-slate-200/80 rounded-md border border-slate-200/80 transition-colors"
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                        <span>Source</span>
+                        <ArrowUpRight className="w-3 h-3 text-slate-400" />
+                      </a>
+
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] sm:text-[12.5px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200 transition-colors"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>Live Demo</span>
+                          <ArrowUpRight className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                {/* Description */}
+                <p className="text-[13.5px] sm:text-[14.5px] text-slate-600 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Highlights with dynamic hover bullet color */}
+                <div className="space-y-1.5 sm:space-y-2 pt-1">
+                  <div className="text-[11.5px] sm:text-[12px] font-semibold text-slate-800 uppercase tracking-wider">
+                    Key Technical Highlights
+                  </div>
+                  <ul className="space-y-2 text-[13px] sm:text-[13.5px] text-slate-600 leading-relaxed">
+                    {project.highlights.map((h, i) => (
+                      <li key={i} className="flex items-start gap-2.5 group/item">
+                        {/* Bullet point: neutral gray by default, blue ONLY on hover */}
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover/item:bg-blue-600 group-hover:bg-blue-600 transition-colors duration-200 mt-2 shrink-0" />
+                        <span className="group-hover/item:text-slate-900 transition-colors">{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="space-y-3 pt-3">
+                {/* Spec / Metrics Bar */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 pb-0.5">
+                  {project.metrics.map((m) => (
+                    <div
+                      key={m.label}
+                      className="p-2 sm:p-2.5 rounded-lg bg-slate-50 border border-slate-200/70"
+                    >
+                      <div className="text-[10px] sm:text-[10.5px] font-semibold uppercase tracking-wider text-slate-500 truncate">
+                        {m.label}
+                      </div>
+                      <div className="font-mono text-[12px] sm:text-[13px] font-semibold text-slate-900 mt-0.5 truncate">
+                        {m.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-2.5 border-t border-slate-100">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-1 text-[11px] sm:text-[11.5px] font-medium rounded-md bg-slate-100 text-slate-700 border border-slate-200/80"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
         </div>
       </div>
     </section>

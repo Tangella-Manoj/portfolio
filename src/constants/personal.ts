@@ -4,11 +4,10 @@ export const personalInfo = {
   name: 'Manoj Tangella',
   firstName: 'Manoj',
   lastName: 'Tangella',
-  title: 'Software Engineer',
-  tagline: 'Software engineer specializing in backend systems, distributed architecture, performance optimization, and building production-grade services that operate reliably at scale.',
+  title: 'Backend Software Engineer',
+  tagline: 'Backend Software Engineer building distributed systems, high-throughput microservices, and transactional architectures with Java, Spring Boot, Apache Kafka, RabbitMQ, and MySQL.',
   email: 'tangellamanoj9@gmail.com',
-  location: 'Hyderabad',
-  openTo: 'Bengaluru / Remote',
+  location: 'Hyderabad, India',
   resumeUrl: 'https://drive.google.com/file/d/1xLNJiNBKq0__3vIZJcpFMxtPqyBc_Z1r/view?usp=drive_link',
 
   education: {
@@ -18,12 +17,14 @@ export const personalInfo = {
     display: 'B.Tech CSE — RGUKT Nuzvid | CGPA 8.9',
   },
 
-  experience: '1+ yr full-time',
-  specialization: 'Backend · Distributed Systems',
-  techStack: 'Java · Spring Boot · Apache Kafka',
+  experience: '1+ yr production',
+  specialization: 'Distributed Systems · Backend Architecture',
+  techStack: 'Java · Spring Boot · Apache Kafka · MySQL',
 
   leetcode: {
-    solved: 300,
+    username: 'Manoj_Tangella',
+    url: 'https://leetcode.com/u/Manoj_Tangella/',
+    solved: 324,
     rating: 1446,
   },
 
@@ -39,6 +40,11 @@ export const personalInfo = {
       icon: 'github',
     },
     {
+      name: 'LeetCode',
+      url: 'https://leetcode.com/u/Manoj_Tangella/',
+      icon: 'code',
+    },
+    {
       name: 'Email',
       url: 'mailto:tangellamanoj9@gmail.com',
       icon: 'mail',
@@ -46,8 +52,9 @@ export const personalInfo = {
   ] as SocialLink[],
 
   stats: [
-    { value: 90, suffix: '%', label: 'Latency ↓' },
-    { value: 94, suffix: '%', label: 'Batch Speedup' },
-    { value: 300, suffix: '+', label: 'Problems Solved' },
+    { value: 50, suffix: 'ms', label: 'p99 Commit Latency' },
+    { value: 16, suffix: 'x', label: 'Batch Speedup' },
+    { value: 300, suffix: '+', label: 'LeetCode Solved' },
+    { value: 1, suffix: '+ Yrs', label: 'Production Systems' },
   ] as Stat[],
 };

@@ -1,34 +1,30 @@
-import { personalInfo } from '../../../constants';
+import { ArrowUp } from 'lucide-react';
 
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer
-      className="relative border-t mt-10"
-      style={{ borderColor: 'rgba(255,255,255,0.06)' }}
-    >
-      <div className="section-x py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span
-          className="font-display font-bold text-[13px] tracking-tight text-[var(--text-2)]"
-          style={{ fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.01em' }}
-        >
-          Manoj<span className="text-[#3b82f6]">.</span>Tangella
-        </span>
-        <div className="flex items-center gap-6">
-          {personalInfo.social.slice(0, 2).map((s) => (
-            <a
-              key={s.name}
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-[11px] uppercase tracking-widest text-[var(--text-3)] hover:text-[#3b82f6] transition-colors"
-            >
-              {s.name}
-            </a>
-          ))}
+    <footer className="py-12 border-t border-slate-200/80 bg-slate-100/50">
+      <div className="container-site">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-slate-500">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-800">Manoj Tangella</span>
+            <span>·</span>
+            <span>Backend Software Engineer</span>
+            <span>·</span>
+            <span>© 2026</span>
+          </div>
+
+          <button
+            onClick={scrollToTop}
+            className="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-900 transition-colors"
+          >
+            <span>Back to top</span>
+            <ArrowUp className="w-3.5 h-3.5" />
+          </button>
         </div>
-        <span className="font-mono text-[11px] text-[var(--text-3)]">
-          © 2026 Manoj Tangella
-        </span>
       </div>
     </footer>
   );

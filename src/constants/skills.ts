@@ -2,27 +2,27 @@ import { SkillGroup } from '../types/portfolio';
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: 'Languages',
-    skills: ['Java', 'Python', 'SQL', 'C', 'JavaScript'],
+    category: 'Core Languages',
+    skills: ['Java', 'SQL', 'Python', 'C', 'TypeScript / JavaScript'],
   },
   {
-    category: 'Backend & Microservices',
-    skills: ['Spring Boot', 'REST APIs', 'Microservices', 'Hibernate ORM', 'Apache Kafka', 'Web Services'],
+    category: 'Frameworks & Architecture',
+    skills: ['Spring Boot', 'REST APIs', 'Microservices Architecture', 'Spring Security', 'Hibernate ORM', 'JPA'],
   },
   {
-    category: 'Cloud & DevOps',
-    skills: ['Docker', 'GitHub Actions', 'CI/CD', 'Linux', 'Distributed Computing', 'Cloud Deployment'],
+    category: 'Distributed Systems & Concurrency',
+    skills: ['Multithreading', 'Apache Kafka', 'RabbitMQ', 'Redis Mutex', 'SAGA Pattern', 'Idempotency'],
   },
   {
-    category: 'Databases',
-    skills: ['MySQL', 'SQL Query Optimization', 'Schema Design'],
+    category: 'Databases & Storage',
+    skills: ['MySQL InnoDB', 'PostgreSQL', 'Index Tuning', 'ACID Transactions', 'Query Profiling', 'HikariCP'],
   },
   {
-    category: 'Observability & Security',
-    skills: ['Prometheus', 'Grafana', 'JWT Auth', 'Centralized Logging'],
+    category: 'DevOps & Cloud Delivery',
+    skills: ['Docker', 'GitHub Actions CI/CD', 'Prometheus & Grafana', 'Linux / Bash Scripting', 'Multi-Stage Builds'],
   },
   {
-    category: 'Core Skills',
-    skills: ['System Design', 'Production Debugging', 'Performance Optimization', 'OOP', 'DSA'],
+    category: 'Software Craftsmanship',
+    skills: ['Clean Architecture', 'System Design', 'Domain-Driven Design (DDD)', 'Unit Testing', 'Production RCA & Hotfixes'],
   },
 ];
