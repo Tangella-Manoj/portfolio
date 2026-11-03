@@ -44,11 +44,11 @@ export const projectsList: ProjectItem[] = [
       { label: 'REST APIs', value: '33 Endpoints' },
       { label: 'CI/CD Tests', value: '54/54 Passed' },
       { label: 'Query Latency', value: 'Sub-80ms' },
-      { label: 'Live Hosted', value: 'dockstack.dev' },
+      { label: 'Live Hosted', value: 'stacknode.dev' },
     ],
     tags: ['Java', 'Spring Boot', 'REST APIs', 'Chrome Extension', 'Vector Search', 'Docker', 'CI/CD', 'MySQL'],
     githubUrl: 'https://github.com/Tangella-Manoj/memoryvault',
-    liveUrl: 'https://memoryvault.dockstack.dev',
+    liveUrl: 'https://memoryvault.stacknode.dev',
   },
   {
     id: 'forge-ai',
